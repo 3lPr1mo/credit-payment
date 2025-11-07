@@ -6,13 +6,10 @@ import { productSeed } from '../../seed/product.seed';
 import { ProductNotFoundException } from '../../exception/product.not.found.exception';
 import { ExceptionConstant } from '../../constant/exception.constants';
 
-@Injectable()
-export class ProductUseCase extends ProductServicePort {
-  constructor(private readonly productPersistencePort: ProductPersistencePort) {
-    super();
-  }
+export class ProductUseCase implements ProductServicePort {
+  constructor(private readonly productPersistencePort: ProductPersistencePort) {}
 
-  override async getProducts(): Promise<Product[]> {
+  async getProducts(): Promise<Product[]> {
     const products = await this.productPersistencePort.getProducts();
     if (!products) {
       throw new ProductNotFoundException(ExceptionConstant.PRODUCTS_NOT_FOUND_MESSAGE);
@@ -20,7 +17,7 @@ export class ProductUseCase extends ProductServicePort {
     return products;
   }
 
-  override async seedProducts(): Promise<void> {
+  async seedProducts(): Promise<void> {
     const products = await this.productPersistencePort.getProducts();
 
     if (!products) {
