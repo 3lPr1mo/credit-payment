@@ -10,26 +10,30 @@ module.exports = {
     "src/infrastructure/**/*.ts",
     "!**/*.spec.ts",
     "!**/*.interface.ts",
-    "!**/app/**",
+    "!**/migrations/**",
+    "!**/config/**",
     "!**/*entity*.ts",
     "!**/*dto*.ts",
     "!**/*decorator*.ts",
     "!**/*model*.ts",
     "!**/*response*.ts",
-    "!**/*request*.ts"
+    "!**/*request*.ts",
+    "!**/*module.ts",
+    "!**/*port.ts"
   ],
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '/dist/',
     '/coverage/',
     '/test/',
-    '/app/',
     '.*entity.*',
     '.*dto.*',
     '.*decorator.*',
     '.*model.*',
     '.*response.*',
-    '.*request.*'
+    '.*request.*',
+    ".*module.*",
+    ".port.*"
   ],
   roots: ["<rootDir>"],
   testMatch: [
@@ -45,5 +49,15 @@ module.exports = {
     "html",
     "cobertura"
   ],
-  coverageIgnoreConstructors: true
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80
+    }
+  },
+  coverageProvider: "v8",
+  // Para ignorar constructores en la cobertura, agrega /* istanbul ignore next */ antes de cada constructor
+  // Ejemplo: /* istanbul ignore next */ constructor(...) { ... }
 };
