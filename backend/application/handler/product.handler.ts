@@ -1,10 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ProductServicePort } from '../../domain/api/product.service.port';
 import { GetProductReponse } from 'application/dto/response/get.product.response';
 
 @Injectable()
 export class ProductHandler {
-  constructor(private readonly productServicePort: ProductServicePort) {}
+  constructor(
+    @Inject('ProductUseCase') private readonly productServicePort: ProductServicePort
+  ) {}
 
   async getProducts(): Promise<GetProductReponse[]> {
     const product = await this.productServicePort.getProducts();
