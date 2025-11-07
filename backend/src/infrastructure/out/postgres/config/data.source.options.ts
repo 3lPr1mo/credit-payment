@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import path from 'path';
-import { ProductEntity } from 'src/infrastructure/out/postgres/entity/product.entity';
+import { CustomerEntity } from '../entity/customer.entity';
+import { ProductEntity } from '../entity/product.entity';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 dotenv.config({ path: '.env' });
@@ -12,12 +13,12 @@ export const typeOrmConfig: DataSourceOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: [ProductEntity],
-  migrations: [path.join(__dirname, '..') + '/migrations/**/*{.ts, .js}'],
+  entities: [ProductEntity, CustomerEntity],
+  migrations: [path.join(__dirname, '../migrations/*.{js,ts}')],
   synchronize: false,
   logging: true,
   extra: {
-    options: '-c timezone=America/Bogota'
+    options: '-c timezone=America/Bogota',
   },
 };
 

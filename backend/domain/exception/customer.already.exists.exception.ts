@@ -1,6 +1,6 @@
 export class CustomerAlreadyExistsException extends Error {
-    constructor(message: string){
-        super(message);
-        this.name = 'CustomerAlreadyExistsException';
-    }
+  constructor(message: string) {
+    super(message);
+    this.name = 'CustomerAlreadyExistsException';
+  }
 }
