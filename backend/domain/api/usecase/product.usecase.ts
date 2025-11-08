@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common';
 import { ProductServicePort } from '../product.service.port';
 import { Product } from '../../model/product.model';
 import { ProductPersistencePort } from '../../spi/product.persistence.port';
