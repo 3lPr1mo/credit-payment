@@ -1,32 +1,23 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { ProductPersistencePort } from '../../spi/product.persistence.port';
 import { ProductUseCase } from './product.usecase';
 import { productSeed, seedProducts } from '../../seed/product.seed';
 import { Product } from '../../model/product.model';
 import { ProductNotFoundException } from '../../exception/product.not.found.exception';
 import { ExceptionConstant } from '../../constant/exception.constants';
-import { randomUUID } from 'crypto';
 
 describe('ProductUseCase', () => {
   let productUseCase: ProductUseCase;
-  let productPersistencePort: ProductPersistencePort;
+  let productPersistencePort: jest.Mocked<ProductPersistencePort>;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        ProductUseCase,
-        {
-          provide: ProductPersistencePort,
-          useValue: {
-            getProducts: jest.fn(),
-            seedProducts: jest.fn(),
-          },
-        },
-      ],
-    }).compile();
+  beforeEach(() => {
+    // Create mock for ProductPersistencePort
+    productPersistencePort = {
+      getProducts: jest.fn(),
+      seedProducts: jest.fn(),
+    } as jest.Mocked<ProductPersistencePort>;
 
-    productUseCase = module.get<ProductUseCase>(ProductUseCase);
-    productPersistencePort = module.get<ProductPersistencePort>(ProductPersistencePort);
+    // Create ProductUseCase instance with mocked dependency
+    productUseCase = new ProductUseCase(productPersistencePort);
   });
 
   it('should return products when products exists', async () => {
