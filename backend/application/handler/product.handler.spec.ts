@@ -14,7 +14,7 @@ describe('ProductHandler', () => {
       providers: [
         ProductHandler,
         {
-          provide: ProductServicePort,
+          provide: 'ProductUseCase',
           useValue: {
             getProducts: jest.fn(),
             seedProducts: jest.fn(),
@@ -24,7 +24,7 @@ describe('ProductHandler', () => {
     }).compile();
 
     productHandler = module.get<ProductHandler>(ProductHandler);
-    productServicePort = module.get<ProductServicePort>(ProductServicePort);
+    productServicePort = module.get<ProductServicePort>('ProductUseCase');
   });
 
   describe('getProduct', () => {
