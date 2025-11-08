@@ -28,7 +28,7 @@ import { DeliveryAdapter } from './infrastructure/out/postgres/adapter/delivery.
 import { DeliveryPersistencePort } from 'domain/spi/delivery.persistence.port';
 import { DeliveryUseCase } from 'domain/api/usecase/delivery.usecase';
 import { TransactionStatusRepository } from './infrastructure/out/postgres/repository/transaction.status.repository';
-import { TransactionStatusAdapter } from './infrastructure/out/postgres/adapter/transaction.satatus.adapter';
+import { TransactionStatusAdapter } from './infrastructure/out/postgres/adapter/transaction.status.adapter';
 import { WompiClient } from './infrastructure/out/external/wompi/api/wompi.client';
 import { WompiServiceAdapter } from './infrastructure/out/external/wompi/adapter/wompi.service.adapter';
 import { HttpModule } from '@nestjs/axios';

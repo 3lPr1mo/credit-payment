@@ -58,17 +58,19 @@ describe('WompiClient', () => {
     it('should return acceptance contracts successfully', async () => {
       const mockResponse = {
         data: {
-          presigned_acceptance: {
-            acceptanceToken: 'token1',
-            permalink: 'https://wompi.com/acceptance1',
-            type: AcceptanceType.END_USER_POLICY,
+          data: {
+            presigned_acceptance: {
+              acceptance_token: 'token1',
+              permalink: 'https://wompi.com/acceptance1',
+              type: AcceptanceType.END_USER_POLICY,
+            },
+            presigned_personal_data_auth: {
+              acceptance_token: 'token2',
+              permalink: 'https://wompi.com/acceptance2',
+              type: AcceptanceType.PERSONAL_DATA_AUTH,
+            },
+            other_field: 'not_presigned',
           },
-          presigned_personal_data_auth: {
-            acceptanceToken: 'token2',
-            permalink: 'https://wompi.com/acceptance2',
-            type: AcceptanceType.PERSONAL_DATA_AUTH,
-          },
-          other_field: 'not_presigned',
         },
       } as AxiosResponse;
 
@@ -95,8 +97,10 @@ describe('WompiClient', () => {
     it('should handle empty presigned contracts', async () => {
       const mockResponse = {
         data: {
-          some_field: 'value',
-          another_field: 'value2',
+          data: {
+            some_field: 'value',
+            another_field: 'value2',
+          },
         },
       } as AxiosResponse;
 
@@ -124,7 +128,7 @@ describe('WompiClient', () => {
     const mockCard: Card = {
       number: '4111111111111111',
       cvc: '123',
-      expMont: '12',
+      expMonth: '12',
       expYear: '2025',
       cardHolder: 'John Doe',
     };
@@ -160,7 +164,7 @@ describe('WompiClient', () => {
         {
           number: mockCard.number,
           cvc: mockCard.cvc,
-          exp_month: mockCard.expMont,
+          exp_month: mockCard.expMonth,
           exp_year: mockCard.expYear,
           card_holder: mockCard.cardHolder,
         },
@@ -207,7 +211,6 @@ describe('WompiClient', () => {
       },
       shipping_address: {
         address_line_1: '123 Main St',
-        address_line_2: 'Apt 4B',
         country: 'CO',
         region: 'Cundinamarca',
         city: 'Bogotá',
@@ -228,7 +231,7 @@ describe('WompiClient', () => {
 
       expect(result).toEqual(mockRequest);
       expect(httpService.post).toHaveBeenCalledWith(
-        `${mockConfig.wompi.apiUrl}/tokens/cards`,
+        `${mockConfig.wompi.apiUrl}/transactions`,
         mockRequest,
         {
           headers: {

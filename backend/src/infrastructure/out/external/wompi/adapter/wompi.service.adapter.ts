@@ -48,10 +48,9 @@ export class WompiServiceAdapter implements WompiServicePort {
         const integrityKey = this.configService.wompi.integrityKey;
 
         const cardTokenization = await this.tokenizeCard(card);
-        console.log("cardTokenization====", cardTokenization);
-        console.log("total====", order.total);
+
         const amountInCents = Math.floor(order.total * 100); //mitiply by 100 to convert to cents
-        console.log("amountInCents====", amountInCents);
+
         const unhasedSignature = `sk8-${order.id}${amountInCents}COP${integrityKey}`;
         const signature = crypto.createHash('sha256').update(unhasedSignature).digest('hex');
 
@@ -85,7 +84,6 @@ export class WompiServiceAdapter implements WompiServicePort {
             }
         };
 
-        console.log("request====", request);
         //create transaction
         const createTransactionResponse = await this.wompiClient.createTransaction(request);
         const status = createTransactionResponse.data.status as Status;

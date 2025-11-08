@@ -3,6 +3,7 @@ import { OrderTransactionHandler } from './order.transaction.handler';
 import { OrderTransactionServicePort } from 'domain/api/order.transaction.service.port';
 import { StartOrderTransactionRequest } from 'application/dto/request/start.order.transaction.request';
 import { OrderTransaction } from 'domain/model/order.transaction.model';
+import { OrderTransactionResponse } from 'application/dto/response/order.transaction.response';
 import { TransactionStatus } from 'domain/model/transaction.status.model';
 import { Status } from 'domain/model/enum/status.enum';
 
@@ -90,12 +91,46 @@ describe('OrderTransactionHandler', () => {
       },
     };
 
+    const expectedOrderTransactionResponse: OrderTransactionResponse = {
+      id: '550e8400-e29b-41d4-a716-446655440001',
+      paymentGatewayTransactionId: 'txn_wompi_123456789',
+      quantity: 2,
+      product: {
+        id: '550e8400-e29b-41d4-a716-446655440000',
+        name: 'Laptop Dell XPS 15',
+        description: 'High-performance laptop',
+        price: 299999,
+        image: 'https://example.com/laptop.jpg',
+      },
+      delivery: {
+        id: 'delivery_123',
+        address: 'Calle 123 #45-67',
+        country: 'Colombia',
+        city: 'Bogotá',
+        region: 'Cundinamarca',
+        postalCode: '110111',
+        destinataireName: 'Juan Carlos González',
+        fee: 15000,
+      },
+      total: 614998,
+      status: Status.PENDING,
+      createdAt: new Date('2024-12-08T10:30:00Z'),
+      customer: {
+        id: 'customer_123',
+        name: 'Juan Carlos',
+        lastName: 'González',
+        dni: '12345678',
+        phone: '+573001234567',
+        email: 'juan.gonzalez@example.com',
+      },
+    };
+
     it('should successfully start transaction and return order transaction', async () => {
       jest.spyOn(orderTransactionServicePort, 'startTransaction').mockResolvedValue(mockOrderTransaction);
 
       const result = await orderTransactionHandler.startTransaction(mockRequest);
 
-      expect(result).toEqual(mockOrderTransaction);
+      expect(result).toEqual(expectedOrderTransactionResponse);
       expect(orderTransactionServicePort.startTransaction).toHaveBeenCalledTimes(1);
     });
 

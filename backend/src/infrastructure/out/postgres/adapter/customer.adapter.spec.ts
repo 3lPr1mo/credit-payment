@@ -36,7 +36,15 @@ describe('CustomerAdapter', () => {
         email: 'john.doe@example.com',
       };
 
-      jest.spyOn(customerRepository, 'saveCustomer').mockResolvedValue();
+      const mockEntity = {
+        id: '123e4567-e89b-12d3-a456-426614174000',
+        name: 'John',
+        lastName: 'Doe',
+        dni: '12345678',
+        phone: '123456789',
+        email: 'john.doe@example.com',
+      };
+      jest.spyOn(customerRepository, 'saveCustomer').mockResolvedValue(mockEntity);
 
       await customerAdapter.saveClient(customer);
 
@@ -59,7 +67,15 @@ describe('CustomerAdapter', () => {
         email: 'jane.smith@example.com',
       };
 
-      jest.spyOn(customerRepository, 'saveCustomer').mockResolvedValue();
+      const mockEntity = {
+        id: '456e7890-e89b-12d3-a456-426614174001',
+        name: 'Jane',
+        lastName: 'Smith',
+        dni: '87654321',
+        phone: '987654321',
+        email: 'jane.smith@example.com',
+      };
+      jest.spyOn(customerRepository, 'saveCustomer').mockResolvedValue(mockEntity);
 
       await customerAdapter.saveClient(customer);
 
@@ -72,7 +88,7 @@ describe('CustomerAdapter', () => {
       expect(savedEntity.email).toBe('jane.smith@example.com');
     });
 
-    it('should return void when saving is successful', async () => {
+    it('should return saved customer when saving is successful', async () => {
       const customer: Customer = {
         name: 'John',
         lastName: 'Doe',
@@ -81,17 +97,52 @@ describe('CustomerAdapter', () => {
         email: 'john.doe@example.com',
       };
 
-      jest.spyOn(customerRepository, 'saveCustomer').mockResolvedValue();
+      const savedEntity = {
+        id: '123e4567-e89b-12d3-a456-426614174000',
+        name: 'John',
+        lastName: 'Doe',
+        dni: '12345678',
+        phone: '123456789',
+        email: 'john.doe@example.com',
+      };
+
+      jest.spyOn(customerRepository, 'saveCustomer').mockResolvedValue(savedEntity);
 
       const result = await customerAdapter.saveClient(customer);
 
-      expect(result).toBeUndefined();
+      expect(result).toEqual(savedEntity);
+      expect(customerRepository.saveCustomer).toHaveBeenCalledTimes(1);
+    });
+
+    it('should handle repository errors when saving', async () => {
+      const customer: Customer = {
+        name: 'John',
+        lastName: 'Doe',
+        dni: '12345678',
+        phone: '123456789',
+        email: 'john.doe@example.com',
+      };
+
+      const error = new Error('Database connection failed');
+      jest.spyOn(customerRepository, 'saveCustomer').mockRejectedValue(error);
+
+      await expect(customerAdapter.saveClient(customer)).rejects.toThrow(
+        'Database connection failed'
+      );
     });
   });
 
   describe('clientExistsWithEmail', () => {
     it('should return true when customer exists', async () => {
-      jest.spyOn(customerRepository, 'findCustomerByEmail').mockResolvedValue(true);
+      const mockCustomer = {
+        id: '123e4567-e89b-12d3-a456-426614174000',
+        name: 'John',
+        lastName: 'Doe',
+        dni: '12345678',
+        phone: '123456789',
+        email: 'john.doe@example.com',
+      };
+      jest.spyOn(customerRepository, 'findCustomerByEmail').mockResolvedValue(mockCustomer);
 
       const result = await customerAdapter.clientExistsWithEmail('john.doe@example.com');
 
@@ -101,7 +152,7 @@ describe('CustomerAdapter', () => {
     });
 
     it('should return false when customer does not exist', async () => {
-      jest.spyOn(customerRepository, 'findCustomerByEmail').mockResolvedValue(false);
+      jest.spyOn(customerRepository, 'findCustomerByEmail').mockResolvedValue(null);
 
       const result = await customerAdapter.clientExistsWithEmail('nonexistent@example.com');
 
@@ -109,6 +160,85 @@ describe('CustomerAdapter', () => {
       expect(customerRepository.findCustomerByEmail).toHaveBeenCalledWith(
         'nonexistent@example.com',
       );
+    });
+
+    it('should return false when customer is undefined', async () => {
+      jest.spyOn(customerRepository, 'findCustomerByEmail').mockResolvedValue(undefined);
+
+      const result = await customerAdapter.clientExistsWithEmail('test@example.com');
+
+      expect(result).toBe(false);
+    });
+
+    it('should handle repository errors in clientExistsWithEmail', async () => {
+      const error = new Error('Database connection failed');
+      jest.spyOn(customerRepository, 'findCustomerByEmail').mockRejectedValue(error);
+
+      await expect(
+        customerAdapter.clientExistsWithEmail('test@example.com')
+      ).rejects.toThrow('Database connection failed');
+    });
+  });
+
+  describe('findCustomerByEmail', () => {
+    it('should return customer when found', async () => {
+      const mockCustomer = {
+        id: '123e4567-e89b-12d3-a456-426614174000',
+        name: 'John',
+        lastName: 'Doe',
+        dni: '12345678',
+        phone: '123456789',
+        email: 'john.doe@example.com',
+      };
+      jest.spyOn(customerRepository, 'findCustomerByEmail').mockResolvedValue(mockCustomer);
+
+      const result = await customerAdapter.findCustomerByEmail('john.doe@example.com');
+
+      expect(result).toEqual(mockCustomer);
+      expect(customerRepository.findCustomerByEmail).toHaveBeenCalledWith('john.doe@example.com');
+      expect(customerRepository.findCustomerByEmail).toHaveBeenCalledTimes(1);
+    });
+
+    it('should return customer object with spread operator applied', async () => {
+      const mockCustomer = {
+        id: '123e4567-e89b-12d3-a456-426614174000',
+        name: 'Jane',
+        lastName: 'Smith',
+        dni: '87654321',
+        phone: '987654321',
+        email: 'jane.smith@example.com',
+      };
+      jest.spyOn(customerRepository, 'findCustomerByEmail').mockResolvedValue(mockCustomer);
+
+      const result = await customerAdapter.findCustomerByEmail('jane.smith@example.com');
+
+      expect(result).toEqual(mockCustomer);
+      expect(result).not.toBe(mockCustomer); // Should be a different object reference due to spread operator
+    });
+
+    it('should return null when customer is not found', async () => {
+      jest.spyOn(customerRepository, 'findCustomerByEmail').mockResolvedValue(null);
+
+      const result = await customerAdapter.findCustomerByEmail('nonexistent@example.com');
+
+      expect(result).toEqual({});
+    });
+
+    it('should return empty object when customer is undefined', async () => {
+      jest.spyOn(customerRepository, 'findCustomerByEmail').mockResolvedValue(undefined);
+
+      const result = await customerAdapter.findCustomerByEmail('test@example.com');
+
+      expect(result).toEqual({});
+    });
+
+    it('should handle repository errors in findCustomerByEmail', async () => {
+      const error = new Error('Database query failed');
+      jest.spyOn(customerRepository, 'findCustomerByEmail').mockRejectedValue(error);
+
+      await expect(
+        customerAdapter.findCustomerByEmail('test@example.com')
+      ).rejects.toThrow('Database query failed');
     });
   });
 });
