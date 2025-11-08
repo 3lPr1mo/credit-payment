@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { OrderTransactionEntity } from './oder.transaction.entity';
 
 @Entity({ name: 'products' })
 export class ProductEntity {
@@ -23,4 +24,7 @@ export class ProductEntity {
 
   @Column({ nullable: true })
   image?: string;
+
+  @OneToMany(() => OrderTransactionEntity, (orderTransaction) => orderTransaction.product)
+  orderTransactions?: OrderTransactionEntity[];
 }
