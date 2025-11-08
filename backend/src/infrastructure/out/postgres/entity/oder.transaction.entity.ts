@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { ProductEntity } from "./product.entity";
 import { DeliveryEntity } from "./delivery.entity";
 import { TransactionStatusEntity } from "./transaction.status.entity";
@@ -9,7 +9,7 @@ export class OrderTransactionEntity {
     @PrimaryGeneratedColumn('uuid')
     id?: string;
 
-    @Column({name: 'payment_gateway_transaction_id'})
+    @Column({name: 'payment_gateway_transaction_id', nullable: true})
     paymentGatewayTransactionId?: string;
 
     @Column()
@@ -19,11 +19,11 @@ export class OrderTransactionEntity {
     @JoinColumn({name: 'product_id'})
     product: ProductEntity;
 
-    @ManyToOne(() => DeliveryEntity, (delivery) => delivery.orderTransactions)
+    @OneToOne(() => DeliveryEntity)
     @JoinColumn({name: 'delivery_id'})
     delivery: DeliveryEntity;
 
-    @Column()
+    @Column({type: 'decimal', precision: 10, scale: 2})
     total: number;
 
     @ManyToOne(() => TransactionStatusEntity, (status) => status.orderTransactions)
@@ -39,4 +39,7 @@ export class OrderTransactionEntity {
     @ManyToOne(() => CustomerEntity, (customer) => customer.orderTransactions)
     @JoinColumn({name: 'customer_id'})
     customer: CustomerEntity;
+
+    @CreateDateColumn({name: 'created_at'})
+    createdAt?: Date;
 }

@@ -5,7 +5,7 @@ import { OrderTransactionEntity } from "./oder.transaction.entity";
 @Entity({ name: 'transaction_status' })
 export class TransactionStatusEntity {
     @PrimaryGeneratedColumn()
-    id?: string;
+    id?: number;
 
     @Column()
     name: string;

@@ -26,7 +26,6 @@ export interface CustomerDataWompiRequest {
 
 export interface ShippingAddressWompiRequest {
     address_line_1: string;
-    address_line_2: string;
     country: string;
     region: string;
     city: string;

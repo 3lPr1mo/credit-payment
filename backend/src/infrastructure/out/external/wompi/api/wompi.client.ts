@@ -9,6 +9,7 @@ import configuration from "src/infrastructure/out/postgres/config/configuration"
 import { CreateTransactionWompiRequest } from "../dto/request/create.transaction.wompi.request";
 import { CardTokenizationResponse } from "../dto/response/card.tokenization.response";
 import { GetTransactionWompiResponse } from "../dto/response/get.transaction.wompi.response";
+import { CreateTransactionWompiResponse } from "../dto/response/create.transaction.wompi.response";
 
 @Injectable()
 export class WompiClient {
@@ -30,11 +31,25 @@ export class WompiClient {
             )
         );
 
-        const presignedEntries = Object.entries(data)
-        .filter(([key]) => key.startsWith('presigned_'))
-        .map(([_, value]) => value as Acceptance);
+        const acceptances: Acceptance[] = [];
+        
+        if (data.data.presigned_acceptance) {
+            acceptances.push({
+                acceptanceToken: data.data.presigned_acceptance.acceptance_token,
+                permalink: data.data.presigned_acceptance.permalink,
+                type: data.data.presigned_acceptance.type,
+            });
+        }
+        
+        if (data.data.presigned_personal_data_auth) {
+            acceptances.push({
+                acceptanceToken: data.data.presigned_personal_data_auth.acceptance_token,
+                permalink: data.data.presigned_personal_data_auth.permalink,
+                type: data.data.presigned_personal_data_auth.type,
+            });
+        }
 
-        return presignedEntries;
+        return acceptances;
     }
 
     async tokenizeCard(card: Card): Promise<CardTokenizationResponse> {
@@ -47,7 +62,7 @@ export class WompiClient {
                 {
                     number: card.number,
                     cvc: card.cvc,
-                    exp_month: card.expMont,
+                    exp_month: card.expMonth,
                     exp_year: card.expYear,
                     card_holder: card.cardHolder,
                 }, 
@@ -67,26 +82,31 @@ export class WompiClient {
         return data;
     }
 
-    async createTransaction(request: CreateTransactionWompiRequest): Promise<CreateTransactionWompiRequest> {
+    async createTransaction(request: CreateTransactionWompiRequest): Promise<CreateTransactionWompiResponse> {
         const url = this.configService.wompi.apiUrl;
         const publicKey = this.configService.wompi.publicKey;
 
         const {data} = await firstValueFrom(
-            this.httpClient.post(`${url}/tokens/cards`, request, {
+            this.httpClient.post(`${url}/transactions`, request, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${publicKey}`,
-                }
+                },
             }).pipe(
                 catchError((error: AxiosError) => {
+                    if(error.response){
+                        const explicitError = error.response.data;
+                        console.log("error.response====", JSON.stringify(explicitError, null, 2));
+                    }
                     throw new Error(error.message);
                 })
             )
         );
+
         return data;
     }
 
-    async getTransaction(transactionId: string): Promise<GetTransactionWompiResponse> {
+    async getTransaction(transactionId: string): Promise<CreateTransactionWompiResponse> {
         const url = this.configService.wompi.apiUrl;
 
         const {data} = await firstValueFrom(

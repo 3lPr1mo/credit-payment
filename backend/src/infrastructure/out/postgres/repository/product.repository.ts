@@ -17,4 +17,12 @@ export class ProductRepository {
   async saveProducts(productEntities: ProductEntity[]): Promise<void> {
     await this.productRepository.save(productEntities);
   }
+
+  async findProductById(id: string): Promise<ProductEntity> {
+    return await this.productRepository.findOne({ where: { id } });
+  }
+
+  async updateProductStock(id: string, quantity: number): Promise<void> {
+    await this.productRepository.update(id, { stock: quantity });
+  }
 }
