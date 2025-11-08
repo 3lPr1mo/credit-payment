@@ -8,7 +8,7 @@ import { CustomerEntity } from '../entity/customer.entity';
 export class CustomerAdapter implements CustomerPersistencePort {
   constructor(private readonly repository: CustomerRepository) {}
 
-  async saveClient(customer: Customer): Promise<void> {
+  async saveClient(customer: Customer): Promise<Customer> {
     const customerEntity = new CustomerEntity();
     customerEntity.name = customer.name;
     customerEntity.lastName = customer.lastName;
@@ -16,11 +16,17 @@ export class CustomerAdapter implements CustomerPersistencePort {
     customerEntity.phone = customer.phone;
     customerEntity.email = customer.email;
 
-    await this.repository.saveCustomer(customerEntity);
+    const customerEntitySaved = await this.repository.saveCustomer(customerEntity);
+    return {...customerEntitySaved};
   }
 
   async clientExistsWithEmail(email: string): Promise<boolean> {
     const customer = await this.repository.findCustomerByEmail(email);
     return !!customer;
+  }
+
+  async findCustomerByEmail(email: string): Promise<Customer> {
+    const customer = await this.repository.findCustomerByEmail(email);
+    return {...customer};
   }
 }

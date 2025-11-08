@@ -7,13 +7,17 @@ import { ExceptionConstant } from 'domain/constant/exception.constants';
 export class CustomerUseCase implements CustomerServicePort {
   constructor(private readonly customerPersistencePort: CustomerPersistencePort) {}
 
-  async createCustomer(customer: Customer): Promise<void> {
-    const clientExists = await this.customerPersistencePort.clientExistsWithEmail(
-      customer.email
-    );
+  async createCustomer(customer: Customer): Promise<Customer> {
+    console.log("customer====", customer);
+    const clientExists = await this.customerPersistencePort.clientExistsWithEmail(customer.email);
     if (clientExists) {
       throw new CustomerAlreadyExistsException(ExceptionConstant.CUSTOMER_ALREADY_EXISTS_MESSAGE);
     }
-    await this.customerPersistencePort.saveClient(customer);
+    return await this.customerPersistencePort.saveClient(customer);
+  }
+
+  async findCustomerByEmail(email: string): Promise<Customer> {
+    const customer = await this.customerPersistencePort.findCustomerByEmail(email);
+    return customer;
   }
 }

@@ -41,4 +41,13 @@ export class ProductAdapter implements ProductPersistencePort {
 
     return await this.repository.saveProducts(productEntities);
   }
+
+  async findProductById(id: string): Promise<Product> {
+    const product = await this.repository.findProductById(id);
+    return {...product};
+  }
+
+  async updateProductStock(id: string, quantity: number): Promise<void> {
+    return await this.repository.updateProductStock(id, quantity);
+  }
 }
