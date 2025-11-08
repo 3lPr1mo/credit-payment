@@ -1,7 +1,7 @@
 export interface Card {
     number: string;
     cvc: string;
-    expMont: string;
+    expMonth: string;
     expYear: string;
     cardHolder: string;
 }

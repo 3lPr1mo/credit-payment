@@ -41,7 +41,7 @@ describe('CustomerUseCase', () => {
       };
 
       jest.spyOn(customerPersistencePort, 'clientExistsWithEmail').mockResolvedValue(false);
-      jest.spyOn(customerPersistencePort, 'saveClient').mockResolvedValue();
+      jest.spyOn(customerPersistencePort, 'saveClient').mockResolvedValue(customer);
 
       await customerUseCase.createCustomer(customer);
 

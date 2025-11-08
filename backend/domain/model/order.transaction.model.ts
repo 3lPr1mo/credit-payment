@@ -1,8 +1,8 @@
+import { Acceptance } from "./acceptance.model";
 import { Customer } from "./customer.model";
 import { Delivery } from "./delivery.model";
-import { AcceptanceType } from "./enum/acceptance.enum";
 import { Product } from "./product.model";
-import { Status } from "./status.model";
+import { TransactionStatus } from "./transaction.status.model";
 
 export interface OrderTransaction {
   id?: string;
@@ -10,10 +10,10 @@ export interface OrderTransaction {
   quantity: number;
   product: Product;
   delivery: Delivery;
-  total: number;
-  status?: Status;
-  acceptanceEndUserPolicy?: AcceptanceType;
-  acceptancePersonalDataAuthorization?: AcceptanceType;
+  total?: number;
+  status?: TransactionStatus;
+  acceptanceEndUserPolicy?: Acceptance;
+  acceptancePersonalDataAuthorization?: Acceptance;
   createdAt?: Date;
   customer: Customer;
 }

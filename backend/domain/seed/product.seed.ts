@@ -8,7 +8,7 @@ export function seedProducts(count: number): Product[] {
       id: faker.string.uuid(),
       name: faker.commerce.productName(),
       description: faker.commerce.productDescription(),
-      price: parseFloat(faker.commerce.price()),
+      price: parseInt(faker.commerce.price().replace('.', '')),
       stock: faker.number.int({ min: 1, max: 100 }),
       image: faker.image.urlPicsumPhotos({ width: 200, height: 200 }),
     });

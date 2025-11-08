@@ -26,4 +26,19 @@ export class ProductUseCase implements ProductServicePort {
 
     return Promise.resolve();
   }
+
+  async findProductById(id: string): Promise<Product> {
+    return await this.productPersistencePort.findProductById(id);
+  }
+
+  async updateProductStock(id: string, quantity: number): Promise<void> {
+    const product = await this.productPersistencePort.findProductById(id);
+    if(!product){
+      throw new ProductNotFoundException(ExceptionConstant.PRODUCTS_NOT_FOUND_MESSAGE);
+    }
+    product.stock = product.stock - quantity;
+    return await this.productPersistencePort.updateProductStock(id, product.stock);
+  }
+
+
 }

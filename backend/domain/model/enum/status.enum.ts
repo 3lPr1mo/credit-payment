@@ -1,7 +1,7 @@
-export enum TransactionStatus {
+export enum Status {
   PENDING = 'PENDING',
   APPROVED = 'APPROVED',
   DECLINED = 'DECLINED',
+  VOIDED = 'VOIDED',
   ERROR = 'ERROR',
-  VOIDED = 'VOIDED'
 }
