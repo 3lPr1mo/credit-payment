@@ -1,0 +1,137 @@
+.page-layout {
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-background-primary);
+    box-sizing: border-box;
+}
+
+.navbar {
+    background-color: var(--color-background-secondary);
+    border-bottom: 1px solid var(--color-border-primary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+}
+
+.navbar-content {
+    width: 100%;
+    margin: 0;
+    padding: 1rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.page-title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cart-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--color-text-primary);
+}
+
+.cart-button:hover {
+    background-color: var(--color-background-primary);
+    border-color: var(--color-border-primary);
+}
+
+.cart-button:active {
+    transform: scale(0.95);
+}
+
+.cart-icon {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+}
+
+.cart-count {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background-color: var(--color-primary);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-bold);
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    border: 2px solid var(--color-background-secondary);
+}
+
+.page-content {
+    flex: 1;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .navbar-content {
+        padding: 1rem 0.75rem;
+    }
+    
+    .page-title {
+        font-size: 1.25rem;
+    }
+    
+    .page-content {
+        padding: 0;
+    }
+    
+    .cart-button {
+        padding: 0.5rem;
+    }
+    
+    .cart-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-content {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .page-content {
+        padding: 0;
+    }
+    
+    .page-title {
+        font-size: 1.125rem;
+    }
+}

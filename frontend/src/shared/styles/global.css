@@ -1,0 +1,67 @@
+:root {
+
+    /*Colors*/
+    --color-primary: #FFD814;
+
+    /*Text colors*/
+    --color-text-primary: #000000;
+    --color-text-secondary: #DE7C5E;
+    --color-text-tertiary: #9b9b9b;
+    --color-text-quaternary: #565959;
+
+    /*Background colors*/
+    --color-background-primary: #E3E3E3;
+    --color-background-secondary: #FFFFFF;
+
+    /*Border colors*/
+    --color-border-primary: #d3d3d3;
+    --color-border-secondary: #DE7C5E;
+    --color-border-tertiary: #000000;
+
+    /*Font sizes*/
+    --font-size-large: 40px;
+    --font-size-medium: 22px;
+    --font-size-small: 10px;
+
+    /*Font weights*/
+    --font-weight-bold: 700;
+    --font-weight-medium: 500;
+    --font-weight-regular: 400;
+
+    /*Font families*/
+    --font-family-primary: 'Roboto', sans-serif;
+    --font-family-secondary: 'Open Sans', sans-serif;
+    --font-family-tertiary: 'Helvetica', sans-serif;
+
+    /*Status colors*/
+    --color-status-approved: #16A34A;
+    --color-status-declined: #DC2626;
+    --color-status-pending: #FACC15;
+    --color-status-voided: #6B7280;
+    --color-status-error: #B91C1C;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-background-primary);
+}
+
+#root {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
