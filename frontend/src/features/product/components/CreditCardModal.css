@@ -1,0 +1,192 @@
+.card-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .card-modal-content {
+    background-color: #fff;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.25s ease;
+  }
+
+  .card-modal-component{
+    padding: 1rem;
+  }
+  
+  .card-modal-content h2 {
+    text-align: center;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+    color: #222;
+  }
+  
+  .card-modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+  
+  .card-modal-content input {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  
+  .card-modal-content input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+  }
+  
+  .card-modal-content p {
+    font-size: 0.8rem;
+    color: red;
+    margin: 0.25rem 0 0;
+  }
+  
+  .card-modal-row {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+  }
+  
+  .card-row > div {
+    flex: 1;
+  }
+  
+  .card-modal-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  
+  .card-modal-actions button {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .card-modal-actions button[type="button"] {
+    background-color: #e0e0e0;
+    color: #333;
+  }
+  
+  .card-modal-actions button[type="button"]:hover {
+    background-color: #d0d0d0;
+  }
+  
+  .card-modal-actions button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .card-modal-actions button[type="submit"]:hover {
+    background-color: #0069d9;
+  }
+
+  .card-modal-terms {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    background-color: #f9fafb;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  /* Estilo general de cada label */
+  .card-modal-terms label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: #333;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  /* Checkbox moderno */
+  .card-modal-terms input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-primary, #007bff);
+    cursor: pointer;
+    margin-top: 2px;
+    flex-shrink: 0;
+    border-radius: 4px;
+  }
+  
+  /* Efecto hover */
+  .card-modal-terms label:hover {
+    color: var(--color-primary, #007bff);
+  }
+  
+  /* Si se quiere resaltar los términos como links */
+  .card-modal-terms a {
+    color: var(--color-primary, #007bff);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .card-modal-terms a:hover {
+    text-decoration: none;
+  }
+  
+  /* Espaciado adicional entre términos y botones */
+  .card-modal-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+  
+  .card-modal-actions button {
+    padding: 0.7rem 1.4rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .card-modal-actions button[type="button"] {
+    background-color: #f0f0f0;
+  }
+  
+  .card-modal-actions button[type="button"]:hover {
+    background-color: #e2e2e2;
+  }
+  
+  .card-modal-actions button[type="submit"] {
+    background-color: var(--color-primary, #007bff);
+    color: white;
+  }
+  
+  .card-modal-actions button[type="submit"]:disabled {
+    background-color: #b0b0b0;
+    cursor: not-allowed;
+  }
+  
+  .card-modal-actions button[type="submit"]:not(:disabled):hover {
+    background-color: var(--color-primary-dark, #0056b3);
+  }

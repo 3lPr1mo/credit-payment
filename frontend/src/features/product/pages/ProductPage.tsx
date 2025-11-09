@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../../app/store";
 import { formatPrice } from "../../../shared/utils/formatPrice";
 import "./ProductPage.css";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductPage() {
     const selectedProduct = useSelector((state: RootState) => state.product.selectedProduct);
@@ -9,6 +10,8 @@ export default function ProductPage() {
     if(!selectedProduct){
         return <div>Product not found</div>
     }
+
+    const navigate = useNavigate();
 
     return (
         <div className="product-page">
@@ -25,7 +28,7 @@ export default function ProductPage() {
                     <p className="price">COP {formatPrice(selectedProduct.price)}</p>
                     <p className="stock">Stock: {selectedProduct.stock}</p>
                 </div>
-                <button className="pay-button">Pay with credit card</button>
+                <button className="pay-button" onClick={() => navigate('/customer')}>Pay with credit card</button>
             </div>
         </div>
     )
