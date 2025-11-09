@@ -1,7 +1,7 @@
 import { useGetProductsQuery } from "../../../app/redux/productsApi"
 import { ProductCard } from "../components/ProductCard"
 
-export default function ProductPage() {
+export default function ProductsPage() {
 
     const {data: products, error, isLoading} = useGetProductsQuery();
     

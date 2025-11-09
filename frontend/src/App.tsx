@@ -1,11 +1,11 @@
 import './App.css'
 import PageLayout from './shared/layouts/PageLayout'
-import ProductPage from './features/product/pages/ProductPage'
+import ProductsPage from './features/product/pages/ProductsPage'
 
 function App() {
   return (
     <PageLayout title="Credit Payment">
-      <ProductPage />
+      <ProductsPage />
     </PageLayout>
   )
 }
