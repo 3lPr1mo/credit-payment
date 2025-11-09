@@ -26,5 +26,5 @@ export const customerSlice = createSlice({
     }
 });
 
-export const { setSelectedCustomer, clearSelectedCustomer } = customerSlice.actions;
+export const { setSelectedCustomer, setSelectedCustomerFromOrderTransaction, clearSelectedCustomer } = customerSlice.actions;
 export default customerSlice.reducer;
