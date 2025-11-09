@@ -1,5 +1,6 @@
 import { useGetProductsQuery } from "../../../app/redux/productsApi"
 import { ProductCard } from "../components/ProductCard"
+import "./ProductsPage.css"
 
 export default function ProductsPage() {
 
@@ -9,7 +10,7 @@ export default function ProductsPage() {
     if(error) return <div>Error loading products</div>;
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div className="products-page">
             {products?.map((product) => (
                 <ProductCard key={product.id} product={product} />
             ))}

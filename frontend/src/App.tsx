@@ -1,13 +1,16 @@
 import './App.css'
-import PageLayout from './shared/layouts/PageLayout'
+import ProductPage from './features/product/pages/ProductPage'
 import ProductsPage from './features/product/pages/ProductsPage'
+import { Route, Routes } from 'react-router-dom'
 
 function App() {
+
   return (
-    <PageLayout title="Credit Payment">
-      <ProductsPage />
-    </PageLayout>
+    <Routes>
+      <Route path="/" element={<ProductsPage />} />
+      <Route path="/product/:id" element={<ProductPage />} />
+    </Routes>
   )
 }
 
-export default App
+export default App;

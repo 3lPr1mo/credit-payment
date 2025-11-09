@@ -1,7 +1,8 @@
 import './PageLayout.css';
+import { Outlet } from 'react-router-dom';
 
 interface PageLayoutProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     title?: string;
 }
 
@@ -30,7 +31,7 @@ export default function PageLayout({ children, title = "Credit Payment" }: PageL
                 </div>
             </nav>
             <main className="page-content">
-                {children}
+                {children || <Outlet />}
             </main>
         </div>
     );
