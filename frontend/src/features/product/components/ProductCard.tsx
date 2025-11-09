@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import type { Product } from "../types/product";
-import './ProductCard.css';
+import './styles/ProductCard.css';
 import { useDispatch } from "react-redux";
 import { setSelectedProduct } from "../../../app/redux/slices/productSlice";
 import { formatPrice } from "../../../shared/utils/formatPrice";

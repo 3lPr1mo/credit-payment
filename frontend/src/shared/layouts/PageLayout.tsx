@@ -1,5 +1,5 @@
 import './PageLayout.css';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 interface PageLayoutProps {
     children?: React.ReactNode;
@@ -7,11 +7,17 @@ interface PageLayoutProps {
 }
 
 export default function PageLayout({ children, title = "Credit Payment" }: PageLayoutProps) {
+    
+    const navigate = useNavigate();
+    const handlerTitleClick = () => {
+        navigate("/");
+    }
+    
     return (
         <div className="page-layout">
             <nav className="navbar">
                 <div className="navbar-content">
-                    <h1 className="page-title">{title}</h1>
+                    <h1 className="page-title" onClick={handlerTitleClick}>{title}</h1>
                     <div className="navbar-actions">
                         <button className="cart-button" aria-label="Carrito de compras">
                             <svg 
