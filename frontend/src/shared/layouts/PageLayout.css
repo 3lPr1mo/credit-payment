@@ -33,6 +33,7 @@
     font-weight: var(--font-weight-bold);
     color: var(--color-text-primary);
     margin: 0;
+    cursor: pointer;
 }
 
 .navbar-actions {

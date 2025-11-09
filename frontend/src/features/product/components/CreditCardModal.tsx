@@ -3,13 +3,16 @@ import type { CreditCard } from "../types/credit.card";
 import Cards from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import { useState } from "react";
-import "./CreditCardModal.css";
+import "./styles/CreditCardModal.css";
+import { useDispatch } from "react-redux";
+import { setCard } from "../../../app/redux/slices/cardSlice";
 
 interface Props {
-    onClose: () => void
+    onClose: () => void,
+    submit: () => void
 }
 
-export default function CreditCardModal({ onClose }: Props) {
+export default function CreditCardModal({ onClose, submit }: Props) {
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm<CreditCard>();
     const [focus, setFocus] = useState("");
@@ -17,10 +20,12 @@ export default function CreditCardModal({ onClose }: Props) {
     const [personalDataAccepted, setPersonalDataAccepted] = useState(false);
 
     const cardData = watch();
+    const dispatch = useDispatch();
 
     const onSubmit = (data: CreditCard) => {
-        console.log(data);
+        dispatch(setCard(data));
         onClose();
+        submit()
     }
 
     return (

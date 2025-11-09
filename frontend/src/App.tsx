@@ -4,7 +4,7 @@ import ProductPage from './features/product/pages/ProductPage'
 import ProductsPage from './features/product/pages/ProductsPage'
 import { Route, Routes } from 'react-router-dom'
 
-function App() {
+/*function App() {
 
   return (
     <Routes>
@@ -15,4 +15,4 @@ function App() {
   )
 }
 
-export default App;
+export default App;*/

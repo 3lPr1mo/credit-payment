@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import type { Delivery } from "../types/delivery";
 import { useDispatch } from "react-redux";
 import { setDelivery } from "../../../app/redux/slices/deliverySlice";
-import "./DeliveryForm.css";
+import "./styles/DeliveryForm.css";
 
 interface Props {
     onSuccess: (data: Delivery) => void;

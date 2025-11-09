@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import "./CustomerForm.css";
+import "./styles/CustomerForm.css";
 import type { Customer } from "../types/customer";
 import { useDispatch } from "react-redux";
 import { setSelectedCustomer } from "../../../app/redux/slices/customerSlice";

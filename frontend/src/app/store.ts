@@ -7,6 +7,7 @@ import orderTransactionReducer from "./redux/slices/orderTransactionSlice";
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { orderTransactionApi } from "./redux/orderTransactionApi";
+import cardReducer from "./redux/slices/cardSlice";
 
 const reducer = combineReducers({
     [productApi.reducerPath]: productApi.reducer,
@@ -15,6 +16,7 @@ const reducer = combineReducers({
     delivery: deliveryReducer,
     orderTransaction: orderTransactionReducer,
     [orderTransactionApi.reducerPath]: orderTransactionApi.reducer,
+    card: cardReducer,
 });
 
 const persistConfig = {
