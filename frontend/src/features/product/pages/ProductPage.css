@@ -129,6 +129,8 @@
     .price-stock {
         gap: 2rem;
         flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
     }
 
     .pay-button {
@@ -138,7 +140,7 @@
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 380px) {
     .product-page {
         padding: 0.5rem;
         gap: 0.5rem;
@@ -159,12 +161,12 @@
         font-size: 1.5rem;
     }
 
-    .name-description p {
+    .name-description .description {
         font-size: 0.9rem;
     }
 
     .reference-number {
-        font-size: 0.75rem;
+        font-size: var(--font-size-small);
     }
 
     .price-stock {

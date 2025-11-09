@@ -18,7 +18,7 @@ export default function ProductPage() {
             <div className="details-container">
                 <div className="name-description">
                     <h1 className="name">{selectedProduct.name}</h1>
-                    <p>{selectedProduct.description}</p>
+                    <p className="description">{selectedProduct.description}</p>
                     <p className="reference-number">Reference: {selectedProduct.id}</p>
                 </div>
                 <div className="price-stock">
