@@ -1,0 +1,4 @@
+export enum AcceptanceType {
+    END_USER_POLICY = 'END_USER_POLICY',
+    PERSONAL_DATA_AUTH = 'PERSONAL_DATA_AUTH',
+}
