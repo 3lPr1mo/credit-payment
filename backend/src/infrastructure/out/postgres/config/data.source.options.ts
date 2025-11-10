@@ -21,11 +21,11 @@ export const typeOrmConfig: DataSourceOptions = {
   synchronize: false,
   logging: true,
   extra: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
     options: '-c timezone=America/Bogota',
   },
-  ssl: {
-    rejectUnauthorized: false,
-  }
 };
 
 export const dataSource = new DataSource(typeOrmConfig);
