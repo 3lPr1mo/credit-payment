@@ -18,11 +18,11 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "typeorm-ts-node-commonjs",
-    "migration:create": "typeorm migration:create ./src/infrastructure/out/postgres/migrations/${MIGRATION_NAME}",
-    "migration:generate": "typeorm-ts-node-commonjs -d ./src/infrastructure/out/postgres/config/data.source.options.ts migration:generate ./src/infrastructure/out/postgres/migrations/$npm_config_name",
-    "migration:run": "typeorm-ts-node-commonjs -d ./src/infrastructure/out/postgres/config/data.source.options.ts migration:run",
-    "migration:revert": "typeorm-ts-node-commonjs -d ./src/infrastructure/out/postgres/config/data.source.options.ts migration:revert"
+    "typeorm": "npm run build && typeorm -d dist/src/app/config/data.source.options.js",
+    "migration:create": "typeorm migration:create",
+    "migration:generate": "npm run typeorm -- migration:generate",
+    "migration:run": "npm run typeorm -- migration:run",
+    "migration:revert": "npm run typeorm -- migration:revert"
   },
   "dependencies": {
     "@faker-js/faker": "^9.9.0",
