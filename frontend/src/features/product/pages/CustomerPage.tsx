@@ -36,8 +36,8 @@ export default function CustomerPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [startOrderTransaction, {isLoading, isSuccess, isError}] = useStartOrderTransactionMutation();
-    const [finishOrderTransaction, {isLoading: isLoadingFinished, isSuccess: isSuccessFinished, isError: isErrorFinished}] = useFinishOrderTransactionMutation();
+    const [startOrderTransaction, {isLoading, isSuccess}] = useStartOrderTransactionMutation();
+    const [finishOrderTransaction, {isLoading: isLoadingFinished, isSuccess: isSuccessFinished}] = useFinishOrderTransactionMutation();
 
     const handleNextStep = (data: Customer) => {
         dispatch(setSelectedCustomer(data));

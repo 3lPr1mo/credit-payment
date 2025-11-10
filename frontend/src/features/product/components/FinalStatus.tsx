@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import Backdrop from "./Backdrop";
 import type { RootState } from "../../../app/store";
-import { formatPrice } from "../../../shared/utils/formatPrice";
 
 interface Props {
     open: boolean,
