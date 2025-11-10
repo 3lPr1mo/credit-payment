@@ -23,6 +23,9 @@ export const typeOrmConfig: DataSourceOptions = {
   extra: {
     options: '-c timezone=America/Bogota',
   },
+  ssl: {
+    rejectUnauthorized: false,
+  }
 };
 
 export const dataSource = new DataSource(typeOrmConfig);
