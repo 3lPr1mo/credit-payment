@@ -27,6 +27,7 @@ export default function SummaryOrder({ open, onClose, onConfirm }: Props) {
                     <p>{product?.name}</p>
                     <p>{product?.description}</p>
                     <p>{formatPrice(product?.price ?? 0)}</p>
+                    <p>IVA% {orderTransaction?.iva ?? 0}</p>
                 </div>
                 <div className="summary-order-item">
                     <h4>Customer</h4>

@@ -12,4 +12,5 @@ export type OrderTransaction = {
     status: string,
     createdAt: string,
     customer: Customer,
+    iva?: number,
 }

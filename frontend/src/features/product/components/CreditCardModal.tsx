@@ -14,7 +14,7 @@ interface Props {
 
 export default function CreditCardModal({ onClose, submit }: Props) {
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<CreditCard>();
+    const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<CreditCard>();
     const [focus, setFocus] = useState("");
     const [endPolicyAccepted, setEndPolicyAccepted] = useState(false);
     const [personalDataAccepted, setPersonalDataAccepted] = useState(false);
@@ -51,6 +51,11 @@ export default function CreditCardModal({ onClose, submit }: Props) {
                                 pattern: { value: /^[0-9\s]{16}$/, message: "Invalid card number" },
                             },)
                             }
+                            onChange={(e) => {
+                                const onlyNumbers = e.target.value.replace(/\D/g, '');
+                                const formatted = onlyNumbers.replace   (/(.{4})/g, '$1').trim();
+                                setValue("number", formatted, { shouldValidate: true});
+                            }}
                             onFocus={() => setFocus("number")}
                             placeholder="Card number" />
                         {errors.number && <p style={{ color: "red" }}>{errors.number?.message}</p>}
@@ -75,6 +80,10 @@ export default function CreditCardModal({ onClose, submit }: Props) {
                                     pattern: { value: /^(0[1-9]|1[0-2])$/, message: "Invalid expiration month" },
                                 },)
                                 }
+                                onChange={(e) => {
+                                    const onlyNumbers = e.target.value.replace(/\D/g, '');
+                                    setValue("expMonth", onlyNumbers, { shouldValidate: true});
+                                }}
                                 onFocus={() => setFocus("expiry")}
                                 placeholder="MM" maxLength={2} />
                             {errors.expMonth && <p style={{ color: "red" }}>{errors.expMonth?.message}</p>}
@@ -87,6 +96,10 @@ export default function CreditCardModal({ onClose, submit }: Props) {
                                     pattern: { value: /^[2-9][4-9]$/, message: "Invalid expiration year" },
                                 },)
                                 }
+                                onChange={(e) => {
+                                    const onlyNumbers = e.target.value.replace(/\D/g, '');
+                                    setValue("expYear", onlyNumbers, { shouldValidate: true});
+                                }}
                                 onFocus={() => setFocus("expiry")}
                                 placeholder="YY" maxLength={2} />
                             {errors.expYear && <p style={{ color: "red" }}>{errors.expYear?.message}</p>}
@@ -99,6 +112,10 @@ export default function CreditCardModal({ onClose, submit }: Props) {
                                     pattern: { value: /^[0-9]{3}$/, message: "Invalid CVC" },
                                 },)
                                 }
+                                onChange={(e) => {
+                                    const onlyNumbers = e.target.value.replace(/\D/g, '');
+                                    setValue("cvc", onlyNumbers, { shouldValidate: true});
+                                }}
                                 onFocus={() => setFocus("expiry")}
                                 placeholder="CVC" />
                             {errors.cvc && <p style={{ color: "red" }}>{errors.cvc?.message}</p>}
