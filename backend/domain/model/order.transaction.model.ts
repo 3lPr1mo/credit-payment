@@ -16,4 +16,5 @@ export interface OrderTransaction {
   acceptancePersonalDataAuthorization?: Acceptance;
   createdAt?: Date;
   customer: Customer;
+  iva?: number;
 }

@@ -74,6 +74,14 @@ export class WompiClient {
                 }
             ).pipe(
                 catchError((error: AxiosError) => {
+                    console.log("Wompi error: ", {
+                        message: error.message,
+                        code: error.code,
+                        status: error.response?.status,
+                        data: error.response?.data,
+                        headers: error.response?.headers,
+                    })
+                    console.log("error.response====", JSON.stringify(error.response?.data, null, 2));
                     throw new Error(error.message);
                 })
             )
@@ -98,7 +106,15 @@ export class WompiClient {
                         const explicitError = error.response.data;
                         console.log("error.response====", JSON.stringify(explicitError, null, 2));
                     }
-                    throw new Error(error.message);
+                    console.log("Wompi error: ", {
+                        message: error.message,
+                        code: error.code,
+                        status: error.response?.status,
+                        data: error.response?.data,
+                        headers: error.response?.headers,
+                    })
+                    throw error;
+                    //throw new Error(error.message);
                 })
             )
         );

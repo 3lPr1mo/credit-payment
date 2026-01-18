@@ -60,7 +60,8 @@ export class OrderTransactionHandler {
             customer: model.customer,
             total: model.total,
             status: model.status.name,
-            createdAt: model.createdAt
+            createdAt: model.createdAt,
+            iva: model.iva,
         }
     }
 }

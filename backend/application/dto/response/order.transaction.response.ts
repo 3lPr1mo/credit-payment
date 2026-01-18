@@ -157,4 +157,10 @@ export class OrderTransactionResponse {
     type: CustomerOrderTransactionResponse,
   })
   customer: CustomerOrderTransactionResponse;
+
+  @ApiProperty({
+    description: 'IVA percentage',
+    example: 0.19,
+  })
+  iva?: number;
 }
